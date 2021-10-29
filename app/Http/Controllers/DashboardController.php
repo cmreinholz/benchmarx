@@ -53,6 +53,23 @@ class DashboardController extends Controller
                 $response->response=$request->currency;
         
                 $response->save();  
+if ($response->question_id == 13){
+    $revenue=Response::select('response')->where('question_id', '=', 13)
+    ->where('user_id', '=', Auth::user()->id)
+    ->where('year', '=', $now->year)
+    ->first();
+dd($revenue);
+$profitability=($request->currency/$revenue->response);
+$response = new Response;
+            
+                $response->question_id = 17;
+                $response->user_id=Auth::user()->id;
+                $response->year=$now->year;
+                $response->response=$profitability;
+        
+                $response->save();  
+}
+
                 
                 return view('dashboard');  
 

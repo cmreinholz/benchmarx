@@ -24,10 +24,12 @@ Route::get('logout', 'Auth\LoginController@logout', function () {
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
+Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard')->middleware('auth');
 
-Route::post('dashboard', 'DashboardController@response');
+Route::post('dashboard', 'DashboardController@response')->middleware('auth');
 
-Route::get('/home', 'DashboardController@dashboard')->name('home');
+Route::get('/home', 'DashboardController@dashboard')->name('home')->middleware('auth');
 
-Route::get('/createQuestion', 'QuestionController@index')->name('createQuestion');
+Route::resource('questions', 'QuestionController')->middleware('auth');
+
+

@@ -16,8 +16,9 @@
                 <div class="card-body">
 
 
-                {{-- dd($__data)--}}
-              @isset($noresponseqs)
+                {{-- dd($noresponseqs) --}}
+              @isset($noresponseqs[0]) 
+             
               @if ($noresponseqs[0]->type=="currency")
 
               <form method="POST" action="/dashboard">
@@ -136,20 +137,26 @@
               <div class="card" style="width: 100%;">
                 <img class="card-img-top" src="..." alt="Card image cap">
                 <div class="card-body">
+                    
                   <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <p class="card-text">
+                  <div id="chart" style="height: 300px;"></div>
+                      </p>
                 <a href="#" class="btn btn-primary">Go somewhere</a>
+                
                 </div>
             </div>
 
 
           </div>
+
             <div class="col-md-3">
             <div class="card" style="width: 100%;">
                 <img class="card-img-top" src="..." alt="Card image cap">
                 <div class="card-body">
                   <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <p class="card-text">
+                  <div id="chart2" style="height: 300px;"></div></p>
                 <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
@@ -194,7 +201,34 @@
          
         </main>
        
+<!-- Charting library -->
+<script src="https://unpkg.com/chart.js@2.9.3/dist/Chart.min.js"></script>
+<!-- Chartisan -->
+<script src="https://unpkg.com/@chartisan/chartjs@^2.1.0/dist/chartisan_chartjs.umd.js"></script>
+    <!-- Your application script -->
+    <script>
+      const chart = new Chartisan({
+        el: '#chart',
+        url: "@chart('sample_chart')",
+        hooks: new ChartisanHooks()
+          .pieColors(['#a51e22', '#023764', '#0053a5'])
+          
+          .datasets('pie')
+          
+      }) 
+    </script>
 
+<script>
+      const chart2 = new Chartisan({
+        el: '#chart2',
+        url: "@chart('profit_chart')",
+        hooks: new ChartisanHooks()
+          .pieColors(['#a51e22', '#023764', '#0053a5'])
+          
+          .datasets('pie')
+          
+      }) 
+    </script>
 
 
 @endsection
